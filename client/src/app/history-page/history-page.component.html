@@ -1,0 +1,69 @@
+<!--CONTENT-->
+<main class="content">
+  <div class="page-title">
+    <h4 class="left-align col s4">
+      Orders history
+      <i
+      (click)="openInfo()"
+      class="material-icons black-text pointer"
+      >
+        info_outline
+      </i>
+    </h4>
+
+    <button
+      (click)="filterIsVisible = !filterIsVisible"
+      class="btn btn-small col s1"
+      [ngClass]="{
+        active: filterIsVisible,
+        red: isFiltered()
+      }"
+      data-position="left"
+      data-tooltip="Open filters"
+      #tooltip
+    >
+      <i class="material-icons">filter_list</i>
+    </button>
+  </div>
+  <app-history-filter
+   *ngIf="filterIsVisible"
+   (onFilter)="applyFilter($event)"
+   >
+
+  </app-history-filter>
+  <ng-template #reloadingBlock>
+    <app-loader></app-loader>
+  </ng-template>
+  <div *ngIf="!reloading; else reloadingBlock">
+    <div *ngIf="orders.length > 0; else empty ">
+      <app-history-list [orders]="orders"></app-history-list>
+      <div
+       class="center mb2"
+       *ngIf="!endOfOrdersList"
+        >
+        <button
+          class="btn waves-effect grey darken-1 btn-small"
+          (click)="loadMore()"
+          *ngIf="!loading; else loader"
+        > 
+          Load more
+        </button>
+        <ng-template #loader>
+          <app-loader></app-loader>
+        </ng-template>
+      </div>
+    </div>
+    <ng-template #empty>
+        <div class="center"> No orders to show </div>
+    </ng-template>
+  </div>
+  <ng-template #reloadingBlock>
+    <app-loader></app-loader>
+  </ng-template>
+</main>
+<div class="tap-target" data-target="menu" #tapTarget>
+  <div class="tap-target-content">
+      <h5>This page:</h5>
+      <p>History page will help you check orders history</p>
+  </div>
+</div>

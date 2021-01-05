@@ -1,0 +1,34 @@
+<div class="page-title">
+  <h4>
+    Analytics
+    <i (click)="openInfo()" class="material-icons black-text pointer">
+      info_outline
+    </i>
+  </h4>
+</div>
+<div [style.display]="pending ? 'none' : 'block'">
+  <div class="average-price">
+    <p>
+      Average check: <strong>{{ average }}$</strong>
+    </p>
+  </div>
+  <div class="row">
+    <div class="analytics-block col s6">
+      <h5>Gains</h5>
+      <canvas #gain></canvas>
+    </div>
+    <div class="analytics-block col s6">
+      <h5>Orders</h5>
+      <canvas #order></canvas>
+    </div>
+  </div>
+</div>
+<app-loader *ngIf="pending"> </app-loader>
+<div class="tap-target" data-target="menu" #tapTarget>
+  <div class="tap-target-content">
+    <h5>This page:</h5>
+    <p>
+      Analytics page created to visualize orders and day check payout data
+    </p>
+  </div>
+</div>

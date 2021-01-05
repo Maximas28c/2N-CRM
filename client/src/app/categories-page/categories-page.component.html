@@ -1,0 +1,50 @@
+<!--CONTENT-->
+<main class="content">
+    <div class="page-title">
+        <h4>Categories
+            <i
+            (click)="openInfo()"
+            class="material-icons black-text pointer"
+            >
+               info_outline
+           </i>
+        </h4>
+        <button class="waves-effect waves-light btn grey darken-1"
+        routerLink="/categories/new">Add category
+        </button>
+    </div>
+
+    <div 
+        class="row"
+        *ngIf="categories$ | async as categories; else loader"
+        >
+        <div class="col s12">
+            <div class="collection" *ngIf="categories.length !== 0; else empty">
+                <a 
+                    *ngFor="let category of categories"
+                    [routerLink]="['/categories', category._id]"
+                    class="collection-item">
+                        {{category.name}}
+                </a>
+            </div>
+            <ng-template #empty>
+                <div class="center">
+                    You don't have any categories
+                </div>
+            </ng-template>
+        </div>
+    </div>
+    <ng-template #loader>
+        <app-loader>
+
+        </app-loader> 
+    </ng-template>
+
+
+</main>
+<div class="tap-target" data-target="menu" #tapTarget>
+    <div class="tap-target-content">
+        <h5>This page:</h5>
+        <p>Categories page allows you to add categories of selling goods. Also you can add some goods in already added categories</p>
+    </div>
+</div>

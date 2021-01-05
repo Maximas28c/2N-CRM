@@ -1,0 +1,77 @@
+<!--CONTENT-->
+<main class="content">
+    <div class="page-title">
+        <h4>
+            <a routerLink="/categories">Categories</a>
+            <i class="material-icons">keyboard_arrow_right</i>
+            {{ isNew? 'Add' : 'Edit' }} category
+        </h4>
+        <span>
+            <button 
+                *ngIf = "!isNew"
+                class="btn btn-small red" 
+                (click) = "deleteCategory()">
+              <i class="material-icons">delete</i>
+            </button>
+        </span>
+    </div>
+
+    <div class="row">
+        <form class="col s12 l6" [formGroup]='form' (ngSubmit)='onSubmit()'>
+            <div class="input-field">
+                <input
+                 id="name"
+                 type="text"
+                 formControlName="name"                >
+                <label for="name">Name</label>
+                <span
+                 class="helper-text red-text">
+                    <span>
+                        Please enter category name
+                    </span>
+                </span>
+            </div>
+
+            <div>
+                <input 
+                 type="file"
+                 class="display-none"
+                 (change)="onFileUpload($event)"
+                 #input
+                >
+                <button
+                 (click)="triggerClick()"
+                 [disabled]="form.disabled"
+                 class="waves-effect waves-light btn orange lighten-2 mb2"
+                 type="button"
+                >
+                    <i class="material-icons left">backup</i>
+                    Upload
+                </button>
+            </div>
+            <div>
+                <button
+                 type="submit"
+                 class="waves-effect waves-light btn"
+                 [disabled] = "this.form.invalid! || this.form.disabled!"
+                >
+                    Save
+                </button>
+            </div>
+        </form>
+
+        <div class="col s12 l4 center">
+            <img 
+             class="responsive-img h-200" 
+             [src]="imagePreview"
+             *ngIf="imagePreview"
+            >
+        </div>
+    </div>
+<app-position-form
+ *ngIf="category?._id"
+ [categoryId]="category._id" 
+>
+
+</app-position-form>
+</main>
